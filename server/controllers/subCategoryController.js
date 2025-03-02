@@ -1,67 +1,70 @@
-const db = require("../db");
+const { SubCategory, Category } = require("../models");
 
-//  CREATE a SubCategory
-exports.createSubCategory = (req, res) => {
-  const { SubCategoryName, CategoryId } = req.body;
+// CREATE a SubCategory
+exports.createSubCategory = async (req, res) => {
+  try {
+    const { SubCategoryName, CategoryId } = req.body;
 
-  // Check if CategoryId exists
-  db.query("SELECT * FROM Category WHERE CategoryId = ?", [CategoryId], (err, result) => {
-    if (err) return res.status(500).json(err);
-    
-    if (result.length === 0) {
-      return res.status(400).json({ error: "Invalid CategoryId. Please create the category first." });
-    }
+    // Check if Category exists
+    const category = await Category.findByPk(CategoryId);
+    if (!category) return res.status(400).json({ error: "Invalid CategoryId" });
 
-    const query = "INSERT INTO SubCategory (SubCategoryName, CategoryId) VALUES (?, ?)";
-    db.query(query, [SubCategoryName, CategoryId], (err, result) => {
-      if (err) return res.status(500).json(err);
-      res.status(201).json({ message: "SubCategory added", SubCategoryId: result.insertId });
-    });
-  });
+    const subCategory = await SubCategory.create({ SubCategoryName, CategoryId });
+    res.status(201).json({ message: "SubCategory added", subCategory });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-//  GET all SubCategories
-exports.getAllSubCategories = (req, res) => {
-  db.query("SELECT * FROM SubCategory", (err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
+// GET all SubCategories
+exports.getAllSubCategories = async (req, res) => {
+  try {
+    const subCategories = await SubCategory.findAll();
+    res.json(subCategories);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-//  DELETE a SubCategory
-exports.deleteSubCategory = (req, res) => {
-  db.query("DELETE FROM SubCategory WHERE SubCategoryId = ?", [req.params.id], (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "SubCategory deleted" });
-  });
+// GET SubCategories by Category
+exports.getSubCategoriesByCategory = async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+    const subCategories = await SubCategory.findAll({ where: { CategoryId: categoryId } });
+
+    res.json(subCategories);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
-
-
 
 // UPDATE a SubCategory
-exports.updateSubCategory = (req, res) => {
-  const { SubCategoryName, CategoryId } = req.body;
+exports.updateSubCategory = async (req, res) => {
+  try {
+    const { SubCategoryName, CategoryId } = req.body;
+    const { id } = req.params;
 
-  // Check if CategoryId exists
-  db.query("SELECT * FROM Category WHERE CategoryId = ?", [CategoryId], (err, result) => {
-    if (err) return res.status(500).json(err);
+    const subCategory = await SubCategory.findByPk(id);
+    if (!subCategory) return res.status(404).json({ error: "SubCategory not found" });
 
-    if (result.length === 0) {
-      return res.status(400).json({ error: "Invalid CategoryId. Please check the category ID." });
-    }
-
-    const query = "UPDATE SubCategory SET SubCategoryName = ?, CategoryId = ? WHERE SubCategoryId = ?";
-    db.query(query, [SubCategoryName, CategoryId, req.params.id], (err) => {
-      if (err) return res.status(500).json(err);
-      res.json({ message: "SubCategory updated successfully" });
-    });
-  });
+    await subCategory.update({ SubCategoryName, CategoryId });
+    res.json({ message: "SubCategory updated successfully", subCategory });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-// GET All SubCategories Under a Single Category
-exports.getSubCategoriesByCategory = (req, res) => {
-  db.query("SELECT * FROM SubCategory WHERE CategoryId = ?", [req.params.categoryId], (err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
+// DELETE a SubCategory
+exports.deleteSubCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const subCategory = await SubCategory.findByPk(id);
+
+    if (!subCategory) return res.status(404).json({ error: "SubCategory not found" });
+
+    await subCategory.destroy();
+    res.json({ message: "SubCategory deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };

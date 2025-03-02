@@ -1,28 +1,34 @@
-const db = require("../db");
+const { Category } = require("../models");
 
-//  CREATE a Category
-exports.createCategory = (req, res) => {
-  const { CategoryName } = req.body;
-  const query = "INSERT INTO Category (CategoryName) VALUES (?)";
+// CREATE Category
+exports.createCategory = async (req, res) => {
+  try {
+    console.log("Received Data:", req.body);  // ✅ Debugging: Log input
 
-  db.query(query, [CategoryName], (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.status(201).json({ message: "Category added", CategoryId: result.insertId });
-  });
+    const { CategoryName } = req.body;
+    const category = await Category.create({ CategoryName });
+
+    res.status(201).json({ message: "Category added", category });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+// GET All Categories
+exports.getAllCategories = async (req, res) => {
+  try {
+    const categories = await Category.findAll();
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
-//  GET all Categories
-exports.getAllCategories = (req, res) => {
-  db.query("SELECT * FROM Category", (err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
-};
-
-// ✅ DELETE a Category
-exports.deleteCategory = (req, res) => {
-  db.query("DELETE FROM Category WHERE CategoryId = ?", [req.params.id], (err) => {
-    if (err) return res.status(500).json(err);
+// DELETE Category
+exports.deleteCategory = async (req, res) => {
+  try {
+    await Category.destroy({ where: { CategoryId: req.params.id } });
     res.json({ message: "Category deleted" });
-  });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };

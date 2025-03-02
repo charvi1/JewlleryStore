@@ -2,7 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const db = require("./db");
+const sequelize = require("./db");
+
+sequelize.sync({ alter: true })  // ✅ This will update the table structure without deleting data
+  .then(() => console.log("✅ Database synced with Sequelize"))
+  .catch(err => console.error("❌ Sync Error:", err));
+
 
 // Import Routes
 //const authRoutes = require("./routes/authRoutes");
