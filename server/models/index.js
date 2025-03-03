@@ -5,6 +5,8 @@ const Product = require("./Product");
 const Order = require("./Order");
 const PaymentDetails = require("./PaymentDetails");
 const ShippingDetails = require("./ShippingDetails");
+const { Country, State, Region } = require("./Location");
+const { Department, Designation, Employee } = require("./Employee");
 
 // Associations
 Order.hasOne(PaymentDetails, { foreignKey: "OrderId", onDelete: "CASCADE" });
@@ -19,4 +21,17 @@ sequelize
   .then(() => console.log("✅ All tables are synchronized!"))
   .catch((err) => console.error("❌ Error syncing tables:", err));
 
-module.exports = { Category, SubCategory, Product };
+module.exports = {
+  Category,
+  SubCategory,
+  Product,
+  Order,
+  PaymentDetails,
+  ShippingDetails,
+  Country,
+  State,
+  Region,
+  Department,
+  Designation,
+  Employee,
+};

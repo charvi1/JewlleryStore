@@ -13,9 +13,10 @@ sequelize.sync({ alter: true })  // This will update the table structure without
 //const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-//const locationRoutes = require("./routes/locationRoutes");
+const locationRoutes = require("./routes/locationRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const subCategoryRoutes = require("./routes/subCategoryRoutes");
+const employeeRoutes = require("./routes/employeeRoutes");
 
 const app = express();
 app.use(cors());
@@ -25,9 +26,10 @@ app.use(bodyParser.json());
 // app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
  app.use("/api/orders", orderRoutes);
-// app.use("/api/locations", locationRoutes);
+app.use("/api/locations", locationRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/subcategories", subCategoryRoutes);
+app.use("/api/employees", employeeRoutes);
 
 
 // Start Server
