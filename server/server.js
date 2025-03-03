@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const sequelize = require("./db");
 
-sequelize.sync({ alter: true })  // ✅ This will update the table structure without deleting data
+sequelize.sync({ alter: true })  // This will update the table structure without deleting data
   .then(() => console.log("✅ Database synced with Sequelize"))
   .catch(err => console.error("❌ Sync Error:", err));
 
@@ -12,7 +12,7 @@ sequelize.sync({ alter: true })  // ✅ This will update the table structure wit
 // Import Routes
 //const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
-//const orderRoutes = require("./routes/orderRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 //const locationRoutes = require("./routes/locationRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const subCategoryRoutes = require("./routes/subCategoryRoutes");
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 // Use Routes
 // app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
-// app.use("/api/orders", orderRoutes);
+ app.use("/api/orders", orderRoutes);
 // app.use("/api/locations", locationRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/subcategories", subCategoryRoutes);

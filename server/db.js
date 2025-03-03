@@ -5,7 +5,7 @@ require("dotenv").config();
 const sequelize = new Sequelize(
   process.env.DB_NAME || "jewelryecomdb",
   process.env.DB_USER || "root",
-  process.env.DB_PASS || "Charvi-123",
+  process.env.DB_PASS || "icchu2004",
   {
     host: process.env.DB_HOST || "localhost",
     dialect: "mysql",
