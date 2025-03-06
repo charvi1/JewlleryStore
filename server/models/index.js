@@ -3,6 +3,7 @@ const Category = require("./Category");
 const SubCategory = require("./SubCategory");
 const Product = require("./Product");
 const Order = require("./Order");
+const User=require("./User");
 const PaymentDetails = require("./PaymentDetails");
 const ShippingDetails = require("./ShippingDetails");
 const { Country, State, Region } = require("./Location");
@@ -24,6 +25,7 @@ sequelize
 module.exports = {
   Category,
   SubCategory,
+  User,
   Product,
   Order,
   PaymentDetails,

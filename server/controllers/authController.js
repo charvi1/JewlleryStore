@@ -2,22 +2,32 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
-
 exports.register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-  const { UserName, EmailId, Password1 } = req.body;
+  const { UserName, EmailId, Password1, RoleId } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(Password1, 10);
-    const user = await User.create({ UserName, EmailId, Password1: hashedPassword, RoleId: 1 });
+
+    // Ensure RoleId is valid; default to 'Customer' (1) if not provided or invalid
+    const validRoles = [1, 2, 3, 4, 5]; // Allowed roles: Customer, Seller, Admin, Manager, Support
+    const assignedRole = validRoles.includes(RoleId) ? RoleId : 1;
+
+    const user = await User.create({ 
+      UserName, 
+      EmailId, 
+      Password1: hashedPassword, 
+      RoleId: assignedRole
+    });
 
     res.json({ message: "User Registered Successfully", user });
   } catch (error) {
     res.status(500).json(error);
   }
 };
+
 
 exports.login = async (req, res) => {
   const { EmailId, Password1 } = req.body;

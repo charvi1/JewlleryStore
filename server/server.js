@@ -8,9 +8,8 @@ sequelize.sync({ alter: true })  // This will update the table structure without
   .then(() => console.log("✅ Database synced with Sequelize"))
   .catch(err => console.error("❌ Sync Error:", err));
 
-
 // Import Routes
-//const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const locationRoutes = require("./routes/locationRoutes");
@@ -23,14 +22,13 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Use Routes
-// app.use("/api/auth", authRoutes);
+app.use("/api/users", authRoutes);   // ✅ Fixed: Changed userRoutes to authRoutes
 app.use("/api/products", productRoutes);
- app.use("/api/orders", orderRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/locations", locationRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/subcategories", subCategoryRoutes);
 app.use("/api/employees", employeeRoutes);
-
 
 // Start Server
 const PORT = process.env.PORT || 5000;
