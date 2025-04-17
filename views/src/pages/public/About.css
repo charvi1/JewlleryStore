@@ -1,0 +1,81 @@
+/* src/components/About.css */
+
+
+.about-section {
+    background-color: #F7F3EA;
+    height: 70vh;
+  }
+
+  .about-img-cont{
+    height: 60vh;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 5%;
+  }
+
+  .about-img-1-cont{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: absolute;
+    right: 62%;
+
+  }
+
+  .about-img-border{
+    border: 5px solid white;
+  }
+  
+  .about-img {
+    /* width: 170px;
+    height: 250px; */
+    height: 70%;
+    object-fit: cover;
+  }
+  
+  .rounded-shape {
+    border-radius: 50% / 30%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 1rem;
+  }
+  
+  .about-text {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .explore-link {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .explore-link .arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .explore-link:hover .arrow {
+    transform: translateX(5px);
+  }
+
+  .explore-link:hover {
+    color:#333;
+  }
+  
