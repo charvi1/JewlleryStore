@@ -9,6 +9,9 @@ const ShippingDetails = require("./ShippingDetails");
 const { Country, State, Region } = require("./Location");
 const { Department, Designation, Employee } = require("./Employee");
 
+SubCategory.belongsTo(Category, { foreignKey: 'CategoryId' });
+SubCategory.hasMany(Product, { foreignKey: 'SubCategoryId' });
+Category.hasMany(SubCategory, { foreignKey: 'CategoryId' });
 // Associations
 Order.hasOne(PaymentDetails, { foreignKey: "OrderId", onDelete: "CASCADE" });
 PaymentDetails.belongsTo(Order, { foreignKey: "OrderId" });

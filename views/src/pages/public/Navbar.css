@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Italianno&family=Montserrat:ital,wght@0,600;1,600&family=Quattrocento:wght@400;700&display=swap');
+
+
+.navbarr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 15vh;
+  background-color: #F7F3EA;
+  padding: 0 10%;
+  width: 100%;
+  position: fixed;
+  font-family: "Courier Prime", monospace;
+  font-size: 1.03rem;
+  font-weight: 700;
+  z-index: 1;
+  }
+
+  .right-link-container{
+    width: 25%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+    height: 70%;
+  }
+  
+  .left-links{
+    width: 25%;
+    display: flex;
+    height: inherit;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 70%;
+    color: #5b4f47;
+  }
+
+  .right-links{
+    display: flex;
+    height: inherit;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 10vw;
+    color: #5b4f47;
+  }
+
+  .logo-img {
+    /* height: inherit; */
+    height: 10vh;
+    width: auto;
+    align-items: center;
+    
+
+  }
+  
+  .nav-link {
+   
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }

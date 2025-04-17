@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const sequelize = require("./db");
 
-sequelize.sync({ alter: true })  // This will update the table structure without deleting data
+sequelize.sync({alter: true })  // This will update the table structure without deleting data
   .then(() => console.log("✅ Database synced with Sequelize"))
   .catch(err => console.error("❌ Sync Error:", err));
 
@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Use Routes
-app.use("/api/users", authRoutes);   // ✅ Fixed: Changed userRoutes to authRoutes
+app.use("/api/users", authRoutes);  
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/locations", locationRoutes);

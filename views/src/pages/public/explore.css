@@ -1,0 +1,76 @@
+.explore-page{
+  width:100%;
+  padding-top: 80px;
+}
+.her-section {
+    position: relative;
+    width: 304%;
+    height: 90vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+  }
+  
+  .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  
+  .her-overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    padding: 2rem;
+    color: white;
+    border-radius: 12px;
+  }
+  
+  .her-overlay h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .her-overlay p {
+    font-size: 1.2rem;
+  }
+  
+  .section-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1200px;
+    z-index: 1;
+  }
+  
+  .section-content.reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .shop-now-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 8px 20px;
+    width:130px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #ffffff;
+    transition: 0.3s ease;
+  }
+  
+  .shop-now-btn:hover {
+    background-color: #c7a17a;
+    color: #fff;
+  }
+  

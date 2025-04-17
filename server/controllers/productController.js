@@ -1,38 +1,58 @@
-const { Product, SubCategory } = require("../models");
+const { Product, Category,SubCategory } = require("../models");
 
 // CREATE a new Product
 exports.createProduct = async (req, res) => {
   try {
-    console.log("Received Body:", req.body);  // ✅ Debugging
-    console.log("Received File:", req.file);  // ✅ Debugging
+    console.log("Received Body:", req.body);
+    console.log("Received File:", req.file);
 
-    const { ProductName, ProductDescription, UnitPrice, Quantity, Qty_Reorder, SubCategoryId, ImageURL } = req.body;
-
-    let finalImageURL = ImageURL; // ✅ Accept ImageURL from JSON
-
-    // ✅ If a file is uploaded, use the Cloudinary URL
-    if (req.file) {
-      finalImageURL = req.file.path;  // Use Cloudinary URL
-    }
-
-    if (!finalImageURL) {
-      return res.status(400).json({ error: "Image URL is required. Either upload an image or provide an ImageURL." });
-    }
-
-    // ✅ Check if SubCategory exists
-    const subCategory = await SubCategory.findByPk(SubCategoryId);
-    if (!subCategory) {
-      return res.status(400).json({ error: "Invalid SubCategoryId" });
-    }
-
-    const product = await Product.create({
+    const {
+      ProductId,
       ProductName,
       ProductDescription,
       UnitPrice,
       Quantity,
       Qty_Reorder,
-      ImageURL: finalImageURL,  // ✅ Store Cloudinary image URL
       SubCategoryId,
+      CategoryId,
+      ImageURL,
+      rating
+    } = req.body;
+
+    if (!ProductId) {
+      return res.status(400).json({ error: "ProductId is required." });
+    }
+
+    let finalImageURL = ImageURL;
+    if (req.file) {
+      finalImageURL = req.file.path;
+    }
+
+    if (!finalImageURL) {
+      return res.status(400).json({ error: "Image URL is required." });
+    }
+
+    const SubcategoryExists = await SubCategory.findByPk(SubCategoryId);
+    if (!SubcategoryExists) {
+      return res.status(400).json({ error: "Invalid SubCategoryId" });
+    }
+
+    const CategoryExists = await Category.findByPk(CategoryId);
+    if (!CategoryExists) {
+      return res.status(400).json({ error: "Invalid CategoryId" });
+    }
+
+    const product = await Product.create({
+      ProductId,
+      ProductName,
+      ProductDescription,
+      UnitPrice,
+      Quantity,
+      Qty_Reorder,
+      ImageURL: finalImageURL,
+      SubCategoryId,
+      CategoryId,
+      rating,
     });
 
     res.status(201).json({ message: "Product added", product });
@@ -41,8 +61,6 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-
-
 // GET all Products with stock status
 exports.getAllProducts = async (req, res) => {
   try {
@@ -50,7 +68,13 @@ exports.getAllProducts = async (req, res) => {
       attributes: [
         "ProductId",
         "ProductName",
+        "ProductDescription",
+        "UnitPrice",
         "Quantity",
+        "SubCategoryId",
+        "CategoryId",
+        "ImageURL",
+        "rating",
         [Product.sequelize.literal("CASE WHEN Quantity > 0 THEN 'In Stock' ELSE 'Out of Stock' END"), "StockStatus"],
       ],
     });
@@ -64,7 +88,7 @@ exports.getAllProducts = async (req, res) => {
 // GET a Single Product by ID
 exports.getProductById = async (req, res) => {
   try {
-    const product = await Product.findByPk(req.params.id);
+    const product = await Product.findOne({ where: { ProductId: req.params.id } });
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
@@ -78,23 +102,46 @@ exports.getProductById = async (req, res) => {
 // UPDATE a Product
 exports.updateProduct = async (req, res) => {
   try {
-    const { ProductName, ProductDescription, UnitPrice, Quantity, Qty_Reorder, SubCategoryId } = req.body;
+    const {
+      ProductName,
+      ProductDescription,
+      UnitPrice,
+      Quantity,
+      Qty_Reorder,
+      SubCategoryId,
+      CategoryId,
+      rating
+    } = req.body;
 
-    // Check if product exists
     const product = await Product.findByPk(req.params.id);
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    // Check if SubCategory exists
     if (SubCategoryId) {
-      const subCategory = await SubCategory.findByPk(SubCategoryId);
-      if (!subCategory) {
+      const SubcategoryExists = await SubCategory.findByPk(SubCategoryId);
+      if (!SubcategoryExists) {
         return res.status(400).json({ error: "Invalid SubCategoryId" });
       }
     }
 
-    await product.update({ ProductName, ProductDescription, UnitPrice, Quantity, Qty_Reorder, SubCategoryId });
+    if (CategoryId) {
+      const CategoryExists = await Category.findByPk(CategoryId);
+      if (!CategoryExists) {
+        return res.status(400).json({ error: "Invalid CategoryId" });
+      }
+    }
+
+    await product.update({
+      ProductName,
+      ProductDescription,
+      UnitPrice,
+      Quantity,
+      Qty_Reorder,
+      CategoryId,
+      SubCategoryId,
+      rating
+    });
 
     res.json({ message: "Product updated successfully", product });
   } catch (err) {

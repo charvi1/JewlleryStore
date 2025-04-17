@@ -1,0 +1,130 @@
+/* src/components/Categories.css */
+
+.categories-section {
+    background-color: #fffef9;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  .capsule-container{
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .Capsule{
+    height: 90vh;
+    width: 25%;
+    display: flex;
+    /* align-items:; */
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .cat-box-1 {
+    background-color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    height: 45vh;
+  }
+
+  .cat-box-2 {
+    background-color: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    height: 45vh;
+  }
+  
+  .bordered {
+    border: 1px solid #e8e4d8;
+  }
+  
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: #c9a040;
+    margin-top: 0.75rem;
+  }
+  
+  .cat-desc,
+  .cat-sub {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0.5rem 0;
+  }
+  
+  .cat-btn {
+    background: none;
+    border: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    position: relative;
+  }
+  
+  .cat-btn::after {
+    content: '→';
+    position: absolute;
+    right: -1.2rem;
+    top: 0;
+  }
+  
+  .cat-icon {
+    height: 40px;
+  }
+  
+  .img-2 img {
+    /* width: ; */
+    height: 45vh;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+  }
+ 
+  .img-1 img {
+    /* width: ; */
+    height: 45vh;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+  }
+  
+  .round-img img {
+    border-radius: 60% / 40%;
+  }
+  
+  .browse-btn {
+    background-color: transparent;
+    border: 1px solid #000;
+    padding: 0.5rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .browse-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }
+  
+  .arrow {
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+  }
+  

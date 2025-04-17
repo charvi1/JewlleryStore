@@ -1,0 +1,73 @@
+/* src/components/Hero.css */
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Italianno&family=Montserrat:ital,wght@0,600;1,600&family=Quattrocento:wght@400;700&display=swap');
+
+.hero-section {
+  background-color: #937C6C;
+  width: 99vw;  /* Full viewport width */
+  height: 105vh; /* Full viewport height */
+  padding:15vh;
+  overflow: hidden; /* Prevent overflow issues */
+}
+
+.hero-title {
+  font-family: "Italianno", cursive;
+  font-size: 4rem;
+  color: #F4EEE8;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.hero-img {
+  width: 100%;  /* Ensure it covers the full width */
+  height: 100%; /* Ensure it covers the full height */
+  object-fit: cover;  /* Make sure it doesn't get stretched */
+  display: block;  /* Remove any gaps */
+}
+
+.hero-image-wrapper {
+  padding: 10px 20px 10px 0px;
+}
+
+.circle-frame {
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border: 2px solid #e5cfa2;
+  padding: 10px;
+  height: 40vh;
+  overflow: hidden;
+}
+
+.arch-frame {
+  border: 2px solid #e5cfa2;
+  border-radius: 50% 50% 0 0;
+  overflow: hidden;
+  padding: 10px;
+  height: 67vh;
+}
+
+.hero-subtext {
+  color: #F4EEE8;
+  font-family: "Courier Prime", monospace;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.hero-stats p {
+  font-family: "Courier Prime", monospace;
+  margin: 0.4rem 0;
+  font-weight: 500;
+  color: #F4EEE8;
+}
+
+.shopnow {
+  border-color: #F4EEE8;
+  color: #F4EEE8;
+  font-family: "Courier Prime", monospace;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+

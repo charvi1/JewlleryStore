@@ -23,6 +23,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.12.0",
+    "react-image-magnifiers": "^1.4.0",
     "sequelize": "^6.37.5"
   },
   "description": ""

@@ -3,13 +3,13 @@ const { SubCategory, Category } = require("../models");
 // CREATE a SubCategory
 exports.createSubCategory = async (req, res) => {
   try {
-    const { SubCategoryName, CategoryId } = req.body;
+    const { SubCategoryId, SubCategoryName, CategoryId } = req.body;
 
     // Check if Category exists
     const category = await Category.findByPk(CategoryId);
     if (!category) return res.status(400).json({ error: "Invalid CategoryId" });
 
-    const subCategory = await SubCategory.create({ SubCategoryName, CategoryId });
+    const subCategory = await SubCategory.create({ SubCategoryId, SubCategoryName, CategoryId });
     res.status(201).json({ message: "SubCategory added", subCategory });
   } catch (err) {
     res.status(500).json({ error: err.message });

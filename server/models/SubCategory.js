@@ -8,19 +8,18 @@ SubCategory.init(
   {
     SubCategoryId: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     SubCategoryName: { type: DataTypes.STRING, allowNull: false },
-    CategoryId: { type: DataTypes.INTEGER, allowNull: false },
-    createdAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW }, // ✅ Ensure createdAt exists
-    updatedAt: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW }, // ✅ Ensure updatedAt exists
+    CategoryId: { type: DataTypes.INTEGER, allowNull: false }
   },
-  {
-    sequelize,
-    modelName: "SubCategory",
-    tableName: "SubCategories",
-    timestamps: true, // ✅ Enable timestamps
-  }
-);
 
-// ✅ Define association AFTER model setup
-SubCategory.belongsTo(Category, { foreignKey: "CategoryId", onDelete: "CASCADE" });
+  {
+    sequelize, // Pass the sequelize instance here
+    modelName: "SubCategory"
+  }
+
+);
+SubCategory.associate = (models) => {
+  SubCategory.belongsTo(models.Category, { foreignKey: "CategoryId" });
+  SubCategory.hasMany(models.Product, { foreignKey: "SubCategoryId" });
+};
 
 module.exports = SubCategory;

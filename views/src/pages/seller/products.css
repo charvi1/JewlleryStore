@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Montserrat&family=Fredoka:wght@300..700&family=Courier+Prime&family=Quattrocento:wght@400;700&family=Alef:wght@400;700&family=League+Spartan:wght@100..900&display=swap');
+
+.products-page {
+  background-color: #f9f9f9;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 0px;
+  align-items: center;
+  overflow:hidden;
+}
+
+.product-aside {
+  width: 100%;
+  color: #856f68;
+  padding: 100px 500px 0px;
+  position: relative;
+  z-index: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.aside-category:hover {
+  cursor: pointer;
+  border-top-color: black; /* or any color you want */
+}
+.aside-category {
+  border-top: 2px solid transparent;
+  transition: border-top-color 0.5s ease;
+  padding: 18px 20px;
+  display: flex;
+  position: relative;
+  margin:10px;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Courier Prime";
+  font-size: 1rem;
+}
+
+
+.aside-category-hidden {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  flex-direction: column;
+  z-index: 1;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.reset{
+  border-top: 2px solid transparent;
+  transition: border-top-color 0.5s ease;
+  padding: 0px 0px;
+  display: flex;
+  height: 60px;
+  color:#21211f62;
+  position: relative;
+  margin:10px 0px 10px 500px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+.brand-border {
+  border-bottom: 0.5px solid grey;
+}
+
+.hidden-radio-container {
+  display:flex;
+  gap: 10px;
+  margin-top: 10px;
+  color: #856f68;
+  font-family: "Courier Prime";
+  font-size: 1rem;
+}
+
+
+.flexcol{
+  flex-direction: column;
+  width: 100vw;
+
+}
+
+.product-details{
+  font-size: 15px;
+  padding:10px;
+}
+.product-card {
+  background-color: #eeeeee;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  transition: transform 0.3s ease;
+}
+
+.products-container{
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.aside-content{
+  flex-direction: row;
+  display: flex;
+}
+
+.product-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 220px;
+  font-family: "Courier Prime";
+}
+
+.product-info h2 {
+  font-size: 18px;
+  font-family: "Quattrocento";
+}
+
+.product-info p {
+  font-size: 14px;
+}
+.reset-button{
+  color: rgb(0, 0, 0);
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  max-width: 110px;
+}
+
+.feedback-button,
+.product-cart-button {
+  font-family: "League Spartan", system-ui;
+  text-align: center;
+  padding: 10px;
+  background-color: #21211f;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  max-width: 200px;
+  width: 90%;
+  margin: 2px 60px;
+}
+
+.product-cart-button:hover,
+.feedback-button:hover{
+  background-color: #f39c12;
+}
+
+.product-cart-button:focus,
+.feedback-button:focus {
+  outline: 2px solid #f39c12;
+}
+
+.feedback-popup,
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.feedback-content,
+.modal-content {
+  background-color: #fffaf0;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  font-family: "Courier Prime";
+}
+
+.feedback-textarea,
+.modal-content textarea {
+  width: 100%;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.feedbacksubmit,
+.closebutton {
+  padding: 12px 25px;
+  margin-top: 15px;
+  border-radius: 30px;
+  border: none;
+  background-color: #623a1d;
+  color: white;
+  font-size: 1rem;
+  font-family: "Courier Prime";
+  cursor: pointer;
+}
+
+.ulmodel,
+.limodel,
+.emailkiclass {
+  font-family: "Courier Prime";
+  font-size: 1rem;
+}
+
+.rating-star {
+  --star-size: 15px;
+  --star-color: rgb(0, 0, 0);
+  --star-background: #ddd;
+
+  display: inline-block;
+  font-size: var(--star-size);
+  font-family: Times, serif;
+  line-height: 1;
+
+  background: linear-gradient(
+    90deg,
+    var(--star-color) calc((var(--rating) / var(--rating-max)) * 100%),
+    var(--star-background) calc((var(--rating) / var(--rating-max)) * 100%)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  &::before {
+    content: "★★★★★";
+    letter-spacing: 3px;
+  }
+}
+
+
+
