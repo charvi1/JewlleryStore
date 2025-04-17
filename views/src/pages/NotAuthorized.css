@@ -1,0 +1,11 @@
+.not-authorized {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #ffe6e6;
+    color: #b30000;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  

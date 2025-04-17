@@ -1,0 +1,12 @@
+.admin-dashboard {
+    padding: 40px;
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .admin-dashboard h1 {
+    color: #007bff;
+  }
+  

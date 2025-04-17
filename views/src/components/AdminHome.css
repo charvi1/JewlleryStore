@@ -1,0 +1,8 @@
+.admin-layout {
+    display: flex;
+  }
+  .admin-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
