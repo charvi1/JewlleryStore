@@ -19,5 +19,6 @@ router.post("/login", authController.login);
 router.get("/all-users", authMiddleware([2, 3]), authController.getAllUsers);
 
 router.put("/update-role", authMiddleware([3]), authController.updateUserRole);
+router.get("/me", authMiddleware, authController.getMe);
 
 module.exports = router;

@@ -37,13 +37,23 @@ exports.login = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     const isMatch = await bcrypt.compare(Password1, user.Password1);
-    if (!isMatch) return res.status(400).json({ message: "Invalid Credentials" });
 
+    if (!isMatch) return res.status(400).json({ message: "Invalid Credentials" });
+  console.log(`Password Match: ${isMatch}`);
     const token = jwt.sign({ UserId: user.UserId, RoleId: user.RoleId }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    res.json({ token });
+    res.json({
+      token,
+      user: {
+        UserId: user.UserId,
+        UserName: user.UserName,
+        EmailId: user.EmailId,
+        RoleId: user.RoleId
+      }
+    });
+    
   } catch (error) {
     res.status(500).json(error);
   }
@@ -73,3 +83,17 @@ exports.updateUserRole = async (req, res) => {
     res.status(500).json(error);
   }
 };
+exports.getMe = async (req, res) => {
+  console.log("req.user:", req.user); // log here too
+
+  try {
+    const user = await User.findByPk(req.user.UserId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json(user);
+  } catch (error) {
+    console.error("getMe error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
