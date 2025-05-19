@@ -46,7 +46,7 @@ const Navbar = () => {
         <a href="/" className="nav-link">Home</a>
        
         <a href="#shop" className="nav-link">Shop</a>
-        <a href="#contact" className="nav-link">Contact</a>
+        <a href="/contact" className="nav-link">Contact</a>
       </div>
 
       <div className="navbar-logo">

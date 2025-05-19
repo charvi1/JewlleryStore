@@ -12,6 +12,8 @@ import Hero from '../pages/public/Hero.jsx';
 import About from '../pages/public/About.jsx';
 import ForgotPassword from '../pages/auth/ForgotPassword';
 import ProtectedRoute from './ProtectedRoutes';
+import ContactUs from "../pages/public/Contact";
+
 
 
 
@@ -26,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<About />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
