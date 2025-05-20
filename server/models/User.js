@@ -55,7 +55,15 @@ const User = sequelize.define("User", {
   HintName: {
     type: DataTypes.STRING,
     allowNull: true,
-  }
+  },
+  PasswordResetToken: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  PasswordResetExpires: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 });
 
 User.belongsTo(Role, { foreignKey: "RoleId" });

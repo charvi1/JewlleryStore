@@ -12,6 +12,7 @@ import Navbar from "../pages/public/Navbar.jsx";
 import Categories from "../pages/public/Categories.jsx";
 import About from "../pages/public/About.jsx";
 import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPassword.jsx";
 import Login from "../pages/Login";
 import ProtectedRoute from './ProtectedRoutes';
 import ContactUs from "../pages/public/Contact";
@@ -54,6 +55,7 @@ const AppRoutes = () => {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<About />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/contact" element={<ContactUs/>} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/products/:productId" element={<SingleProductPage onLoginClick={() => setShowLogin(true)} />} />
