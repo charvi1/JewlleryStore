@@ -4,11 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 import { LuDiamond } from "react-icons/lu";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const ProductPage = () => {
-  const { CategoryName } = useParams();
+  const location = useLocation();
+const queryParams = new URLSearchParams(location.search);
+const CategoryName = queryParams.get("CategoryName");
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -27,7 +29,7 @@ const ProductPage = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/products", {
-          params: { categoryNames: CategoryName },
+          params: { CategoryName: CategoryName },
         });
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -197,7 +199,6 @@ if (type === "rating") setOpen(open === 4 );
                 ></span>
               </div>
               <p>₹{product.UnitPrice}</p>
-              <button className="product-cart-button" onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>
           </div>
         ))}

@@ -1,6 +1,9 @@
+// routes/userRoutes.js
+
 const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
+const { upload, handleMulterError } = require("../multerConfig");
 const authController = require("../controllers/authController");
 const { authMiddleware } = require("../middleware/authMiddleware");
 
@@ -18,7 +21,15 @@ router.post("/login", authController.login);
 
 router.get("/all-users", authMiddleware([2, 3]), authController.getAllUsers);
 
-router.put("/update-role", authMiddleware([3]), authController.updateUserRole);
-router.get("/me", authMiddleware, authController.getMe);
+router.put("/update-role", authMiddleware([1]), authController.updateUserRole);
+
+router.get("/me", authMiddleware([1, 2]), authController.getMe);
+
+router.post("/setPhoto", 
+    authMiddleware([1, 2]), 
+    upload.single('image'),
+    handleMulterError,
+    authController.setUserPhoto
+);
 
 module.exports = router;

@@ -25,18 +25,17 @@
   border-top-color: black; /* or any color you want */
 }
 .aside-category {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
   border-top: 2px solid transparent;
   transition: border-top-color 0.5s ease;
   padding: 18px 20px;
-  display: flex;
-  position: relative;
-  margin:10px;
-  align-items: center;
-  justify-content: space-between;
+  margin: 10px 0;
   font-family: "Courier Prime";
   font-size: 1rem;
 }
-
 
 .aside-category-hidden {
   display: flex;
@@ -46,6 +45,14 @@
   z-index: 1;
   margin-left: 20px;
   margin-top: 10px;
+}
+
+.aside-category-hidden.product-show {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 32px;
+  margin-top: 6px;
 }
 
 .reset{
@@ -66,14 +73,19 @@
 }
 
 .hidden-radio-container {
-  display:flex;
-  gap: 10px;
-  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0;
   color: #856f68;
   font-family: "Courier Prime";
   font-size: 1rem;
 }
 
+.hidden-radio-container input[type="radio"] {
+  accent-color: #856f68;
+  margin-right: 6px;
+}
 
 .flexcol{
   flex-direction: column;

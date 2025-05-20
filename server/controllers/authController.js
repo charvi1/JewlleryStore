@@ -2,29 +2,35 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
+
 exports.register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
   const { UserName, EmailId, Password1, RoleId } = req.body;
 
+  if (!UserName || !EmailId || !Password1) {
+    return res.status(400).json({ message: "UserName, EmailId, and Password1 are required" });
+  }
+
   try {
     const hashedPassword = await bcrypt.hash(Password1, 10);
 
-    // Ensure RoleId is valid; default to 'Customer' (1) if not provided or invalid
-    const validRoles = [1, 2, 3, 4, 5]; // Allowed roles: Customer, Seller, Admin, Manager, Support
-    const assignedRole = validRoles.includes(RoleId) ? RoleId : 1;
+    const validRoles = [1, 2, 3, 4, 5];
+    const roleIdInt = parseInt(RoleId, 10);
+    const assignedRole = validRoles.includes(roleIdInt) ? roleIdInt : 1;
 
-    const user = await User.create({ 
-      UserName, 
-      EmailId, 
-      Password1: hashedPassword, 
-      RoleId: assignedRole
+    const user = await User.create({
+      UserName,
+      EmailId,
+      Password1: hashedPassword,
+      RoleId: assignedRole,
     });
 
     res.json({ message: "User Registered Successfully", user });
   } catch (error) {
-    res.status(500).json(error);
+    console.error("Register error:", error);
+    res.status(500).json({ error: error.message || "Server error" });
   }
 };
 
@@ -83,17 +89,62 @@ exports.updateUserRole = async (req, res) => {
     res.status(500).json(error);
   }
 };
-exports.getMe = async (req, res) => {
-  console.log("req.user:", req.user); // log here too
 
+exports.getMe = async (req, res) => {
   try {
-    const user = await User.findByPk(req.user.UserId);
+    const user = await User.findOne({
+      where: { UserId: req.user.UserId },
+      attributes: ["UserId", "UserName", "EmailId", "RoleId"],
+    });
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    res.json(user);
-  } catch (error) {
-    console.error("getMe error:", error);
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
+};
+
+exports.setUserPhoto = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: 'No image file provided'
+            });
+        }
+
+        const user = await User.findOne({
+            where: { UserId: req.user.UserId }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        // Update user's photo URL
+        await user.update({
+            URL: req.file.path
+        });
+
+        res.json({
+            success: true,
+            message: 'Profile picture updated successfully',
+            updatedUser: {
+                ...user.toJSON(),
+                URL: req.file.path
+            }
+        });
+    } catch (error) {
+        console.error('Error updating profile picture:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to update profile picture'
+        });
+    }
 };
 

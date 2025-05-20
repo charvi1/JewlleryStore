@@ -2,11 +2,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import './Categories.css';
-import img1 from '../../assets/cat-earrings.jpg';
+import img1 from '../../assets/cat-earrings.svg';
 import img2 from '../../assets/cat-necklace.jpg';
-import img3 from '../../assets/cat-ring.jpg';
+import img3 from '../../assets/cat-ring.svg';
 import img4 from '../../assets/cat-red-earrings.jpg';
 import img5 from '../../assets/cat-hand-ring.jpg';
+import img6 from '../../assets/cat-neck.svg';
 
 const Categories = () => {
   return (
@@ -41,7 +42,7 @@ const Categories = () => {
             <div className="cat-box-1 bordered">
               <p className="cat-sub">Radiant and chain designs that complement your style</p>
               <h4 className="cat-title">Necklaces</h4>
-              <img src={img1} alt="Necklace Icon" className="cat-icon" />
+              <img src={img6} alt="Necklace Icon" className="cat-icon" />
             </div>
           </div>
         </div>

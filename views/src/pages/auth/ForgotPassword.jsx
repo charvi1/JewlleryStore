@@ -20,7 +20,8 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="auth-fp">
+    <div className="auth-container-fp">
       <h2>Forgot Password</h2>
       <form onSubmit={handleForgotPassword}>
         <input
@@ -32,6 +33,7 @@ const ForgotPassword = () => {
         />
         <button type="submit">Send Reset Link</button>
       </form>
+    </div>
     </div>
   );
 };

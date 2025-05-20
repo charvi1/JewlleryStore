@@ -1,39 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Quattrocento:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=League+Spartan:wght@100..900&display=swap');
+
+.profile-main{
+    background-color: #CAC0B5;
+    padding-left:50vb;
+    padding-right:50vb;
+    padding-top: 20vh;
+    width:100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .profile-container {
+    /* max-width: 60%; */
+    /* margin: auto; */
+    padding: 20px 40px;
+    margin-right: 123px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #623524;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px; /* Add space between the header and profile details */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    /* margin-left: 42.5vh; */
+    border-radius: 50%;
+    background-image: url('https://www.example.com/your-image.jpg');
+    background-color: #aa9b8b;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 15px;
+}
+
+.profile-username {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Quattrocento;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+}
+
+.profile-details p {
+    font-size: 16px;
+    margin-bottom: 0px;
+    margin-left:150px;
+    margin-right:50px ;
+    font-family: Courier Prime;
+}
+
+.profile-error-message {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+}
+
+.edit-button-profile {
+    padding: 10.2px 16px;
+    margin-left:25px;
+    background-color: #996a58;
+    font-family: Courier Prime;
+}
+
+.profile-save-button {
+    padding: 10.2px 16px;
+    background-color: #996a58;
+    font-family: Courier Prime;
+}
+
+.profile-cancel-button {
+    padding: 10.2px 16px;
+    background-color: #171615;
+    font-family: Courier Prime;
+}
+
+.profile-upload-button {
+    border-radius: 20px;
+    padding: 10.2px 16px;
+    margin:10px;
+    background-color: #996a58;
+    font-family: Courier Prime;
+}
+
+.upload-button-profile {
+    border-radius: 20px;
+    padding: 12.2px 16px;
+    background-color: #171615;
+    font-family: Courier Prime;
+    border: none;
+    color: white;
+    /* margin-top: 5px; */
+}
+
+.MulterPhoto{
+    padding-top: 1.5vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(to right, #f6d365, #fda085);
-  }
-  
-  .profile-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-  }
-  
-  .profile-avatar {
-    width: 100px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-  }
-  
-  .profile-home-btn {
-    margin-top: 1rem;
-    padding: 0.6rem 1.2rem;
-    background-color: #ff6f61;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .profile-home-btn:hover {
-    background-color: #e85c50;
-  }
-  
+}
+
+.profile-details-fontFamily{
+    font-family: Quattrocento;
+}
+
+.profile-details input {
+    padding: 2px 12px;
+    outline: none;
+}
+
+.profile-details select{
+    padding: 2px 12px;
+    outline: none;
+}
+
+

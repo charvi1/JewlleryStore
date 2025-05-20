@@ -1,4 +1,5 @@
 const { Product, Category,SubCategory } = require("../models");
+const { Op } = require("sequelize");
 
 // CREATE a new Product
 exports.createProduct = async (req, res) => {
@@ -64,6 +65,14 @@ exports.createProduct = async (req, res) => {
 // GET all Products with stock status
 exports.getAllProducts = async (req, res) => {
   try {
+    let whereClause = {};
+    
+    // Handle category filtering
+    if (req.query.categoryNames) {
+      const categoryNames = req.query.categoryNames.split(',').map(name => name.trim());
+      whereClause['$Category.CategoryName$'] = { [Op.in]: categoryNames };
+    }
+
     const products = await Product.findAll({
       attributes: [
         "ProductId",
@@ -77,10 +86,17 @@ exports.getAllProducts = async (req, res) => {
         "rating",
         [Product.sequelize.literal("CASE WHEN Quantity > 0 THEN 'In Stock' ELSE 'Out of Stock' END"), "StockStatus"],
       ],
+      include: [{
+        model: Category,
+        attributes: ['CategoryName'],
+        required: true
+      }],
+      where: whereClause
     });
 
     res.json(products);
   } catch (err) {
+    console.error('Error fetching products:', err);
     res.status(500).json({ error: err.message });
   }
 };

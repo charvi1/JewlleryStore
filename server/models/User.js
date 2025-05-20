@@ -28,6 +28,34 @@ const User = sequelize.define("User", {
       key: "RoleId",
     },
   },
+  URL: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  PhoneNumber: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  Gender: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  DOB: {
+    type: DataTypes.DATEONLY,
+    allowNull: true,
+  },
+  Location: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  AlternatePhone: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  HintName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  }
 });
 
 User.belongsTo(Role, { foreignKey: "RoleId" });

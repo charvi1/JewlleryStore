@@ -1,65 +1,206 @@
-import React, { useEffect, useState } from "react";
-import "./profile.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './profile.css';
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [error, setError] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/login");
-        return;
-      }
+    const [name, setName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [gender, setGender] = useState('');
+    const [dob, setDob] = useState('');
+    const [location, setLocation] = useState('');
+    const [alternatePhone, setAlternatePhone] = useState('');
+    const [hintName, setHintName] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
 
-      try {
-        const response = await axios.get("http://localhost:5000/api/users/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("User Data:", response.data);
-        setUser(response.data);
-      } catch (err) {
-        console.error("Failed to fetch user", err);
-        navigate("/login");
-      }
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/login');
+                return;
+            }
+
+            try {
+                const res = await axios.get('http://localhost:5000/api/users/me', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                setUser(res.data);
+                setName(res.data.UserName);
+                setPhoneNumber(res.data.PhoneNumber || '');
+                setGender(res.data.Gender || '');
+                setDob(res.data.DOB || '');
+                setLocation(res.data.Location || '');
+                setAlternatePhone(res.data.AlternatePhone || '');
+                setHintName(res.data.HintName || '');
+            } catch (err) {
+                console.error('Error fetching user profile:', err);
+                setError('Could not fetch profile.');
+                navigate('/login');
+            }
+        };
+
+        fetchUserProfile();
+    }, [navigate]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
     };
 
-    fetchProfile();
-  }, [navigate]);
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
 
-  if (!user) return <div>Loading...</div>;
+    const handleSaveProfile = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+        try {
+            const updatedData = {
+                UserName: name,
+                PhoneNumber: phoneNumber,
+                Gender: gender,
+                DOB: dob,
+                Location: location,
+                AlternatePhone: alternatePhone,
+                HintName: hintName,
+            };
 
-  return (
-    <div className="profile-container">
-      <div className="profile-card">
-        <img
-          src="/images/profile-placeholder.png" // Replace with dynamic image if applicable
-          alt="Profile"
-          className="profile-avatar"
-        />
-        <h2>Hello, {user.UserName} 👋</h2>
-        <p>Email: {user.EmailId}</p>
-        <p>Role: {["Customer", "Seller", "Admin", "Manager", "Support"][user.RoleId - 1]}</p>
-        <button onClick={() => navigate("/")} className="profile-home-btn">
-          Back to Home
-        </button>
-        <button onClick={handleLogout} className="profile-logout-btn">
-          Logout
-        </button>
-      </div>
-    </div>
-  );
+            const res = await axios.patch('http://localhost:5000/api/users/me', updatedData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (res.data.success) {
+                setUser(prevUser => ({
+                    ...prevUser,
+                    ...updatedData
+                }));
+                setIsEditing(false);
+                alert('Profile updated successfully!');
+            } else {
+                throw new Error(res.data.message || 'Failed to update profile');
+            }
+        } catch (err) {
+            console.error('Failed to save profile:', err);
+            setError(err.response?.data?.message || 'Could not save profile. Please try again.');
+        }
+    };
+
+    const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
+    const handleUpload = async () => {
+        if (!selectedFile) {
+            alert('Please select a file first!');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', selectedFile);
+        formData.append('email', user.EmailId);
+
+        try {
+            const token = localStorage.getItem('token');
+            const res = await axios.post('http://localhost:5000/api/users/setPhoto', formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            
+            if (res.data.success) {
+                setUser(prevUser => ({
+                    ...prevUser,
+                    URL: res.data.updatedUser.URL
+                }));
+                alert('Profile picture updated successfully!');
+            } else {
+                throw new Error(res.data.message || 'Failed to upload photo');
+            }
+        } catch (err) {
+            console.error('Error uploading photo:', err);
+            alert(err.response?.data?.message || 'Failed to upload photo. Please try again.');
+        }
+    };
+
+    if (error) return <div className="profile-error-message">{error}</div>;
+    if (!user) return <div>Loading...</div>;
+
+    return (
+        <main className="profile-main">
+            <div className="profile-container">
+                <div className="profile-header">
+                    <div
+                        className="profile-image"
+                        style={{
+                            backgroundImage: `url(${user.URL || '/images/profile-placeholder.png'})`,
+                        }}
+                    ></div>
+                    <div className="profile-username">Hello, {user.UserName}</div>
+                    <div className="MulterPhoto">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            id="file-upload"
+                            style={{ display: 'none' }}
+                        />
+                        <label htmlFor="file-upload" className="profile-upload-button">Add Profile Picture </label>
+                        <button onClick={handleUpload} className="upload-button-profile">
+                            Upload
+                        </button>
+                    </div>
+                </div>
+                <div className="profile-details">
+                    <p><strong className="profile-details-fontFamily">Full Name :</strong> {isEditing ? <input value={name} onChange={(e) => setName(e.target.value)} /> : user.UserName}</p>
+                    <p><strong className="profile-details-fontFamily">Mobile Number :</strong> {isEditing ? <input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} /> : (user.PhoneNumber || '- not added -')}</p>
+                    <p><strong className="profile-details-fontFamily">Email ID :</strong> {user.EmailId}</p>
+                    <p><strong className="profile-details-fontFamily">Gender :</strong> {isEditing ? (
+                        <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="non-binary">Non-binary</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                    ) : (
+                        gender || '- not added -'
+                    )}</p>
+                    <p><strong className="profile-details-fontFamily">Date of Birth :</strong> {isEditing ? <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} /> : (dob || '- not added -')}</p>
+                    <p><strong className="profile-details-fontFamily">Location :</strong> {isEditing ? <input value={location} onChange={(e) => setLocation(e.target.value)} /> : (location || '- not added -')}</p>
+                    <p><strong className="profile-details-fontFamily">Alternate Mobile :</strong> {isEditing ? <input value={alternatePhone} onChange={(e) => setAlternatePhone(e.target.value)} /> : (alternatePhone || '- not added -')}</p>
+
+                    {!isEditing ? (
+                        <div className="edit-button-profile" onClick={handleEdit}>EDIT</div>
+                    ) : (
+                        <>
+                            <div className="profile-save-button" onClick={handleSaveProfile}>Save</div>
+                            <div className="profile-cancel-button" onClick={() => setIsEditing(false)}>Cancel</div>
+                        </>
+                    )}
+                </div>
+
+                
+            </div>
+        </main>
+    );
 };
 
 export default ProfilePage;

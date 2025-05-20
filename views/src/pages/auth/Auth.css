@@ -1,4 +1,4 @@
-.auth-container {
+.auth-container-fp {
     max-width: 400px;
     margin: 60px auto;
     padding: 30px;
@@ -8,18 +8,18 @@
     font-family: sans-serif;
   }
   
-  .auth-container h2 {
+  .auth-container-fp h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
   }
   
-  .auth-container form {
+  .auth-container-fp form {
     display: flex;
     flex-direction: column;
   }
   
-  .auth-container input {
+  .auth-container-fp input {
     padding: 10px 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -27,7 +27,7 @@
     font-size: 16px;
   }
   
-  .auth-container button {
+  .auth-container-fp button {
     padding: 10px 12px;
     background-color: #4c8bf5;
     color: white;
@@ -38,7 +38,9 @@
     transition: background 0.3s;
   }
   
-  .auth-container button:hover {
+  .auth-container-fp button:hover {
     background-color: #3a6fd6;
   }
+
+
   

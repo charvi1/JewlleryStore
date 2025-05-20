@@ -45,6 +45,21 @@ exports.getCategoryById = async (req, res) => {
   }
 };
 
+exports.getCategoryByName = async (req, res) => {
+  try {
+    const CategoryName = req.params.name;
+
+    const category = await Category.findOne({ where: { CategoryName: CategoryName } });
+
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    res.json(category);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 // DELETE Category
 exports.deleteCategory = async (req, res) => {
   try {

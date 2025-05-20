@@ -1,11 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import Navbar from './Navbar';
 import Hero from './Hero';
 import About from './About';
 import Categories from './Categories';
+import Footer from './Footer';
 import './home.css';
-import ExploreCollection from './ExploreCollection';
 
 
 const Home = () => {
@@ -15,6 +14,7 @@ const Home = () => {
       <About />
 
       <Categories />
+      <Footer/>
     </>
   );
 };

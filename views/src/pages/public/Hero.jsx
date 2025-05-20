@@ -1,5 +1,6 @@
 // src/components/Hero.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 import hero1 from '../../assets/hero1.jpg';
 import hero2 from '../../assets/hero2.jpg';
@@ -32,10 +33,8 @@ const Hero = () => {
           <div className="col-md-3 text-center">
             <div className="hero-text mt-4">
               <p className="hero-subtext">Discover the beauty of handcrafted jewelry</p>
-              <div className="d-flex justify-content-center gap-3">
-                <button className="btn btn-outline-dark shopnow">Shop Now ↗ </button>
-                {/* <button className="btn btn-outline-dark">Explore collections ↗</button> */}
-              </div>
+              <div className="d-flex justify-content-center gap-3"><Link to="/explore" className="btn btn-outline-dark shopnow">
+              Shop Now ↗ </Link></div>
             </div>
             <div className="hero-image-wrapper">
               <img src={hero3} alt="Earrings" className="img-fluid hero-img circle-frame" />
