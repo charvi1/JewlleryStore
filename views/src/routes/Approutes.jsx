@@ -16,6 +16,8 @@ import Login from "../pages/Login";
 import ProtectedRoute from './ProtectedRoutes';
 import ContactUs from "../pages/public/Contact";
 
+import ContactUs from "../pages/public/Contact";
+
 const AppRoutes = () => {
   const [showLogin, setShowLogin] = useState(false);
 
@@ -31,6 +33,7 @@ const AppRoutes = () => {
         <Route path="/explore" element={<ExploreCollection />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<About />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/contact" element={<ContactUs/>} />
