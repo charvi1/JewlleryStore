@@ -148,3 +148,29 @@ exports.setUserPhoto = async (req, res) => {
     }
 };
 
+exports.updateMe = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { UserId: req.user.UserId } });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const allowedFields = ["UserName", "PhoneNumber", "Gender", "DOB", "Location", "AlternatePhone", "HintName"];
+    const updates = {};
+
+    for (const field of allowedFields) {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    }
+
+    await user.update(updates);
+
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+      user: user.toJSON()
+    });
+  } catch (error) {
+    console.error("UpdateMe error:", error);
+    res.status(500).json({ success: false, message: "Failed to update profile" });
+  }
+};

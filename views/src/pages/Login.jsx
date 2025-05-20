@@ -13,6 +13,8 @@ const Login = ({ onClose }) => {
 
   const navigate = useNavigate();
 
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -23,7 +25,8 @@ const Login = ({ onClose }) => {
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      window.dispatchEvent(new Event("userLoggedIn"));
+
+      setUser(res.data.user);  // <-- Update user state here
 
       toast.success("Login successful!");
       onClose();
@@ -32,6 +35,8 @@ const Login = ({ onClose }) => {
       toast.error(err.response?.data?.message || "Login failed.");
     }
   };
+
+ 
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();

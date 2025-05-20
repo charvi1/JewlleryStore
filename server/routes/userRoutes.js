@@ -3,7 +3,7 @@
 const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
-const { upload, handleMulterError } = require("../multerConfig");
+const { upload, handleMulterError } = require("../multerConfig.cjs");
 const authController = require("../controllers/authController");
 const { authMiddleware } = require("../middleware/authMiddleware");
 
@@ -31,5 +31,6 @@ router.post("/setPhoto",
     handleMulterError,
     authController.setUserPhoto
 );
+router.patch("/me", authMiddleware([1, 2]), authController.updateMe);
 
 module.exports = router;

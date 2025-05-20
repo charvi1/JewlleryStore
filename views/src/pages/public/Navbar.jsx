@@ -7,8 +7,7 @@ import axios from 'axios';
 import logo from '../../assets/logo.png';
 import './Navbar.css';
 
-const Navbar = ({ onLoginClick, onLogout }) => {
-  const [user, setUser] = useState(null);
+const Navbar = ({ user, onLoginClick, onLogout }) => {
   const [cartCount, setCartCount] = useState(0);
 
   const fetchCartCount = async (email) => {
@@ -27,25 +26,16 @@ const Navbar = ({ onLoginClick, onLogout }) => {
   };
 
   useEffect(() => {
-    const storedUserString = localStorage.getItem('user');
-    if (storedUserString && storedUserString !== 'undefined') {
-      try {
-        const parsedUser = JSON.parse(storedUserString);
-        setUser(parsedUser);
-        fetchCartCount(parsedUser.EmailId);
-      } catch (err) {
-        console.error("Error parsing user from localStorage:", err);
-        setUser(null);
-      }
+    if (user && user.EmailId) {
+      fetchCartCount(user.EmailId);
     } else {
-      setUser(null);
+      setCartCount(0);
     }
-  }, []);
+  }, [user]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    setUser(null);
     setCartCount(0);
     if (onLogout) onLogout();
   };
@@ -62,40 +52,45 @@ const Navbar = ({ onLoginClick, onLogout }) => {
         <img src={logo} alt="Logo" className="logo-img" />
       </div>
 
-      <div className="right-link-container">
-        <div className="right-links">
-          {user ? (
-            <>
-              <Link to="/profile" className="nav-link">
-                Hello, {user.UserName}
-              </Link>
-              <button onClick={handleLogout} className="nav-link" aria-label="Logout">
-                <FiLogIn style={{ marginRight: '6px' }} />
-              </button>
-            </>
-          ) : (
-            <button
-              className="nav-link login-button"
-              onClick={(e) => {
-                e.preventDefault();
-                onLoginClick();
-              }}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-              aria-label="Login"
-            >
-              <FaUser />
+      
+         <div className="right-links">
+        {user ? (
+          <>
+            <Link to="/profile" className="nav-link">
+              Hello, {user.UserName}
+            </Link>
+            <button onClick={handleLogout} className="nav-link" aria-label="Logout">
+              <FiLogIn style={{ marginRight: '6px' }} />
             </button>
+          </>
+        ) : (
+          <button
+            className="nav-link login-button"
+            onClick={(e) => {
+              e.preventDefault();
+              onLoginClick();
+            }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            aria-label="Login"
+          >
+            <FaUser />
+          </button>
+        )}
+        <Link
+          to="/cart"
+          className="nav-link cart-link"
+          onClick={(e) => {
+            if (!user) {
+              e.preventDefault();
+              onLoginClick();
+            }
+          }}
+        >
+          <FaShoppingCart style={{ marginLeft: '10px' }} />
+          {cartCount > 0 && (
+            <span className="cart-count">{cartCount}</span>
           )}
-          <Link to="/cart" className="nav-link cart-link" onClick={(e) => {
-                e.preventDefault();
-                onLoginClick();
-              }}>
-            <FaShoppingCart style={{ marginLeft: '10px' }} />
-            {cartCount > 0 && (
-              <span className="cart-count">{cartCount}</span>
-            )}
-          </Link>
-        </div>
+        </Link>
       </div>
     </nav>
   );

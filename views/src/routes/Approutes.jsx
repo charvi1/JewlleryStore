@@ -15,18 +15,36 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import Login from "../pages/Login";
 import ProtectedRoute from './ProtectedRoutes';
 import ContactUs from "../pages/public/Contact";
-
-import ContactUs from "../pages/public/Contact";
+import Success from '../pages/Success';
+// import ContactUs from "../pages/public/Contact";
 
 const AppRoutes = () => {
   const [showLogin, setShowLogin] = useState(false);
-
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   return (
     <>
-      <Navbar onLoginClick={() => setShowLogin(true)} onLogout={() => window.location.href = "/"} />
+   <Navbar 
+  user={user}
+  onLoginClick={() => setShowLogin(true)} 
+  onLogout={() => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setUser(null);
+    window.location.href = "/";
+  }} 
+/>
 
-      {/* Modal-style login */}
-      {showLogin && <Login onClose={() => setShowLogin(false)} />}
+
+
+      {showLogin && (
+        <Login 
+          onClose={() => setShowLogin(false)} 
+          setUser={setUser}   // Pass setUser to Login!
+        />
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -41,6 +59,7 @@ const AppRoutes = () => {
         <Route path="/products/:productId" element={<SingleProductPage onLoginClick={() => setShowLogin(true)} />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/success" element={<Success  />} />
       </Routes>
     </>
   );

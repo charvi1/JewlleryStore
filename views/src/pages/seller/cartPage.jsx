@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import StripeCheckout from "./components/StripeCheckout";
+import { handleStripeCheckout } from "./components/StripeCheckout";
+
 import "./CartPage.css";
 
 const CartPage = () => {
@@ -23,9 +26,9 @@ const CartPage = () => {
       }
 
       const response = await axios.post("http://localhost:5000/api/cart/get", {
-        email: user.EmailId
+        email: user.EmailId,
       });
-      
+
       if (response.data.success) {
         setCartItems(response.data.cart);
       }
@@ -39,13 +42,13 @@ const CartPage = () => {
 
   const handleQuantityChange = async (productId, newQuantity) => {
     if (newQuantity < 1) return;
-    
+
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const response = await axios.post("http://localhost:5000/api/cart/update", {
         email: user.EmailId,
         productId,
-        quantity: newQuantity
+        quantity: newQuantity,
       });
 
       if (response.data.success) {
@@ -63,7 +66,7 @@ const CartPage = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const response = await axios.post("http://localhost:5000/api/cart/remove", {
         email: user.EmailId,
-        productId
+        productId,
       });
 
       if (response.data.success) {
@@ -78,7 +81,8 @@ const CartPage = () => {
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
-      return total + (item.Product?.UnitPrice || 0) * item.Quantity;
+      const price = item.Product ? Number(item.Product.UnitPrice) : 0;
+      return total + price * item.Quantity;
     }, 0);
   };
 
@@ -94,28 +98,28 @@ const CartPage = () => {
       ) : (
         <>
           {cartItems.map((item) => (
-            <div key={item.id} className="cart-item">
+            <div key={item.ProductID} className="cart-item">
               <div className="cart-item-image">
                 <img src={item.Product?.ImageURL} alt={item.Product?.ProductName} />
               </div>
               <div className="cart-item-details">
                 <h4>{item.Product?.ProductName || "Unnamed Product"}</h4>
-                <p className="price">₹{item.Product?.UnitPrice?.toFixed(2) || "0.00"}</p>
+                <p className="price">
+                  ₹{item.Product ? Number(item.Product.UnitPrice).toFixed(2) : "0.00"}
+                </p>
                 <div className="quantity-controls">
-                  <button 
+                  <button
                     onClick={() => handleQuantityChange(item.ProductID, item.Quantity - 1)}
                     disabled={item.Quantity <= 1}
                   >
                     -
                   </button>
                   <span>{item.Quantity}</span>
-                  <button 
-                    onClick={() => handleQuantityChange(item.ProductID, item.Quantity + 1)}
-                  >
+                  <button onClick={() => handleQuantityChange(item.ProductID, item.Quantity + 1)}>
                     +
                   </button>
                 </div>
-                <button 
+                <button
                   className="remove-button"
                   onClick={() => handleRemoveItem(item.ProductID)}
                 >
@@ -125,9 +129,21 @@ const CartPage = () => {
             </div>
           ))}
           <div className="cart-summary">
-            <h3>Total: ₹{calculateTotal().toFixed(2)}</h3>
-            <button className="checkout-button">Proceed to Checkout</button>
-          </div>
+  <h3>Total: ₹{calculateTotal().toFixed(2)}</h3>
+
+  <button
+    className="checkout-button"
+    onClick={() =>
+      handleStripeCheckout(calculateTotal(), cartItems, () => {
+        console.log("Payment successful!");
+        toast.success("Payment Successful");
+      })
+    }
+  >
+    Proceed to Checkout
+  </button>
+</div>
+
         </>
       )}
     </div>
