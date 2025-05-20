@@ -5,6 +5,7 @@ import Hero from './Hero';
 import About from './About';
 import Categories from './Categories';
 import './home.css';
+import Footer from './Footer';
 import ExploreCollection from './ExploreCollection';
 
 
@@ -15,6 +16,7 @@ const Home = () => {
       <About />
 
       <Categories />
+      <Footer/>
     </>
   );
 };

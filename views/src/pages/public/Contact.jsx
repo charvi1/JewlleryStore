@@ -1,6 +1,6 @@
-// src/components/ContactUs.jsx
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import Footer from "./Footer"; 
 import "./contact.css";
 
 const ContactUs = () => {
@@ -11,10 +11,10 @@ const ContactUs = () => {
 
     emailjs
       .sendForm(
-        "service_b6qigmk",       // Replace with your EmailJS Service ID
-        "template_bvpc2he",      // Replace with your EmailJS Template ID
+        "service_b6qigmk",
+        "template_bvpc2he",
         form.current,
-        "wPrGr1VgKVPOQciW6"        // Replace with your EmailJS Public Key
+        "wPrGr1VgKVPOQciW6"
       )
       .then(
         (result) => {
@@ -29,22 +29,27 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="contact-container">
-      <h2>Contact Us</h2>
-      <div className="contact-wrapper">
-        <form ref={form} onSubmit={sendEmail} className="contact-form">
-          <input type="text" name="user_name" placeholder="Your Name" required />
-          <input type="email" name="user_email" placeholder="Your Email" required />
-          <textarea name="message" rows="6" placeholder="Your Message" required />
-          <button type="submit">Send Message</button>
-        </form>
-        <div className="contact-info">
-          <h3>Reach Us At</h3>
-          <p>Email: support@zebaish.com</p>
-          <p>Phone: +91 98765 43210</p>
-          <p>Address: 123, Pet Street, Mumbai, India</p>
+    <div className="page-wrapper"> {/* full height layout */}
+      <div className="contact-page-wrapper"></div>
+      <div className="contact-container">
+        <h2>Contact Us</h2>
+        <div className="contact-wrapper">
+          <form ref={form} onSubmit={sendEmail} className="contact-form">
+            <input type="text" name="user_name" placeholder="Your Name" required />
+            <input type="email" name="user_email" placeholder="Your Email" required />
+            <textarea name="message" rows="6" placeholder="Your Message" required />
+            <button type="submit">Send Message</button>
+          </form>
+          <div className="contact-info">
+            <h3>Reach Us At</h3>
+            <p>Email: support@zebaish.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Address: 123, Pet Street, Mumbai, India</p>
+          </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
