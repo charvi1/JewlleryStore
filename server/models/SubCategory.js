@@ -17,9 +17,9 @@ SubCategory.init(
   }
 
 );
-SubCategory.associate = (models) => {
-  SubCategory.belongsTo(models.Category, { foreignKey: "CategoryId" });
-  SubCategory.hasMany(models.Product, { foreignKey: "SubCategoryId" });
-};
+// SubCategory.associate = (models) => {
+//   SubCategory.belongsTo(models.Category, { foreignKey: "CategoryId" });
+//   SubCategory.hasMany(models.Product, { foreignKey: "SubCategoryId" });
+// };
 
 module.exports = SubCategory;

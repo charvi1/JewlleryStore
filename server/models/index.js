@@ -1,7 +1,7 @@
 const sequelize = require("../db");
 const Sequelize = require("sequelize");
 
-// Import models
+// Import models (without associations inside the individual files)
 const Category = require("./Category");
 const SubCategory = require("./SubCategory");
 const Product = require("./Product");
@@ -14,23 +14,37 @@ const Cart = require("./Cart");
 const { Country, State, Region } = require("./Location");
 const { Department, Designation, Employee } = require("./Employee");
 
+// Define associations centrally here
 
-// Associations
-SubCategory.belongsTo(Category, { foreignKey: 'CategoryId' });
-Product.belongsTo(SubCategory, { foreignKey: 'SubCategoryId' });
-Product.belongsTo(Category, { foreignKey: 'CategoryId' });
+// Category & SubCategory
+SubCategory.belongsTo(Category, { foreignKey: 'CategoryId', onDelete: "CASCADE" });
+Category.hasMany(SubCategory, { foreignKey: 'CategoryId' });
 
-Order.belongsTo(User, { foreignKey: 'UserId' });
-Order.belongsTo(Product, { foreignKey: 'ProductId' });
+// Product relationships
+Product.belongsTo(SubCategory, { foreignKey: 'SubCategoryId', onDelete: "CASCADE" });
+SubCategory.hasMany(Product, { foreignKey: 'SubCategoryId' });
+
+Product.belongsTo(Category, { foreignKey: 'CategoryId', onDelete: "CASCADE" });
+Category.hasMany(Product, { foreignKey: 'CategoryId' });
+
+// Order relationships
+Order.belongsTo(User, { foreignKey: 'UserId', onDelete: "CASCADE" });
+User.hasMany(Order, { foreignKey: 'UserId' });
+
+Order.belongsTo(Product, { foreignKey: 'ProductId', onDelete: "CASCADE" });
+Product.hasMany(Order, { foreignKey: 'ProductId' });
 
 Order.hasOne(ShippingDetails, { foreignKey: "OrderId", onDelete: "CASCADE" });
+ShippingDetails.belongsTo(Order, { foreignKey: "OrderId" });
+
 Order.hasOne(PaymentDetails, { foreignKey: "OrderId", onDelete: "CASCADE" });
+PaymentDetails.belongsTo(Order, { foreignKey: "OrderId" });
 
 // Cart associations
-User.hasMany(Cart, { foreignKey: 'UserID' });
+User.hasMany(Cart, { foreignKey: 'UserID', onDelete: "CASCADE" });
 Cart.belongsTo(User, { foreignKey: 'UserID' });
 
-Product.hasMany(Cart, { foreignKey: 'ProductID' });
+Product.hasMany(Cart, { foreignKey: 'ProductID', onDelete: "CASCADE" });
 Cart.belongsTo(Product, { foreignKey: 'ProductID' });
 
 // Sync all models and create tables if they don't exist
@@ -40,19 +54,19 @@ sequelize
   .catch((err) => console.error("❌ Error syncing tables:", err));
 
 module.exports = {
+  sequelize,
   Category,
   SubCategory,
-  User,
   Product,
+  User,
   Order,
   PaymentDetails,
   ShippingDetails,
+  Cart,
   Country,
   State,
   Region,
   Department,
   Designation,
   Employee,
-  Cart,
-  sequelize,
 };

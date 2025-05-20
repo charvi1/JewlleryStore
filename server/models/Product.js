@@ -32,8 +32,8 @@ const Product = sequelize.define("Product", {
 });
 
 // Define foreign key relationship with SubCategory
-Product.belongsTo(SubCategory, { foreignKey: "SubCategoryId", onDelete: "CASCADE" });
-Product.belongsTo(Category, { foreignKey: "CategoryId" });
-SubCategory.hasMany(Product, { foreignKey: "SubCategoryId" });
+// Product.belongsTo(SubCategory, { foreignKey: "SubCategoryId", onDelete: "CASCADE" });
+// Product.belongsTo(Category, { foreignKey: "CategoryId" });
+// SubCategory.hasMany(Product, { foreignKey: "SubCategoryId" });
 
 module.exports = Product;

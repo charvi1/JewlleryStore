@@ -14,13 +14,7 @@ const { Op } = require('sequelize');
 const sendEmail = require('../utils/sendEmail'); // email sending function
 
  
-  
-const crypto = require('crypto');
-const User = require('../models/User');  // Adjust the path to where your User model is located
-const { Op } = require('sequelize');
 
-// your User model
-const sendEmail = require('../utils/sendEmail'); // email sending function
 
  
   
@@ -177,7 +171,7 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 
-const bcrypt = require('bcryptjs');
+
 
 router.post('/reset-password/:token', async (req, res) => {
   const resetToken = req.params.token;
