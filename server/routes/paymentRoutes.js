@@ -1,10 +1,11 @@
 // backend/routes/payment.js
 const express = require("express");
-const Stripe = require("stripe");
 
 
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
-const stripe = new Stripe("***REMOVED***51PHgJWSEdO7ajODjtoGJu3GGJo5OjjlZckYJ3XJRG5zPq6YvYisKyGTVGHNz5GV7Xl0XytRDpoPMdf8DIQ4j9cYo00fSpCfWI6"); // Your Stripe Secret key (test mode)
+ // Your Stripe Secret key (test mode)
 
 // Create a payment intent
 router.post("/create-payment-intent", async (req, res) => {
