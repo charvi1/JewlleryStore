@@ -42,5 +42,60 @@
     background-color: #3a6fd6;
   }
 
+.auth-reset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-container-reset {
+  background-color: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.auth-container-reset h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.auth-container-reset input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.auth-container-reset input:focus {
+  border-color: #f57c00;
+}
+
+.auth-container-reset button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #f57c00;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-container-reset button:hover {
+  background-color: #e65100;
+}
 
   

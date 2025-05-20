@@ -26,6 +26,7 @@
 }
 .aside-category {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   gap: 12px;
@@ -40,12 +41,16 @@
 .aside-category-hidden {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  flex-direction: column;
-  z-index: 1;
-  margin-left: 20px;
-  margin-top: 10px;
+  position:static;
+  background-color: #ffffff;
+  gap: 8px;
+  width: 100px;
+  margin-left: 32px;
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 4px;
 }
+
 
 .aside-category-hidden.product-show {
   display: flex;

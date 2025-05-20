@@ -89,35 +89,44 @@ const CartPage = () => {
   if (loading) {
     return <div className="cart-container">Loading...</div>;
   }
-
-  return (
+return (
+  <div className="cart">
     <div className="cart-container">
-      <h2>Your Cart</h2>
+      <h2>Your Shopping Cart</h2>
       {cartItems.length === 0 ? (
         <p className="empty">Your cart is empty.</p>
       ) : (
         <>
           {cartItems.map((item) => (
-            <div key={item.ProductID} className="cart-item">
-              <div className="cart-item-image">
-                <img src={item.Product?.ImageURL} alt={item.Product?.ProductName} />
+            <div key={item.ProductID} className="cart-card">
+              <div className="product-image-name">
+                <img
+                  src={item.Product?.ImageURL}
+                  alt={item.Product?.ProductName}
+                  className="cart-card-img"
+                />
+                <div>
+                  <h3>{item.Product?.ProductName || "Unnamed Product"}</h3>
+                </div>
               </div>
-              <div className="cart-item-details">
-                <h4>{item.Product?.ProductName || "Unnamed Product"}</h4>
-                <p className="price">
-                  ₹{item.Product ? Number(item.Product.UnitPrice).toFixed(2) : "0.00"}
-                </p>
+
+              <div className="cart-card-details">
+                <div className="cart-p">
+                  <p><strong>Quantity:</strong> {item.Quantity}</p>
+                  <p><strong>Price:</strong> ₹{Number(item.Product?.UnitPrice).toFixed(2)}</p>
+                </div>
+              </div>
+
+              <div className="cart-btns">
                 <div className="quantity-controls">
                   <button
                     onClick={() => handleQuantityChange(item.ProductID, item.Quantity - 1)}
                     disabled={item.Quantity <= 1}
-                  >
-                    -
-                  </button>
+                  >-</button>
                   <span>{item.Quantity}</span>
-                  <button onClick={() => handleQuantityChange(item.ProductID, item.Quantity + 1)}>
-                    +
-                  </button>
+                  <button
+                    onClick={() => handleQuantityChange(item.ProductID, item.Quantity + 1)}
+                  >+</button>
                 </div>
                 <button
                   className="remove-button"
@@ -128,25 +137,24 @@ const CartPage = () => {
               </div>
             </div>
           ))}
+
           <div className="cart-summary">
-  <h3>Total: ₹{calculateTotal().toFixed(2)}</h3>
-
-  <button
-    className="checkout-button"
-    onClick={() =>
-      handleStripeCheckout(calculateTotal(), cartItems, () => {
-        console.log("Payment successful!");
-        toast.success("Payment Successful");
-      })
-    }
-  >
-    Proceed to Checkout
-  </button>
-</div>
-
+            <h3>Total: ₹{calculateTotal().toFixed(2)}</h3>
+            <button
+              className="checkout-button"
+              onClick={() =>
+                handleStripeCheckout(calculateTotal(), cartItems, () => {
+                  console.log("Payment successful!");
+                  toast.success("Payment Successful");
+                })
+              }
+            >
+              Proceed to Checkout
+            </button>
+          </div>
         </>
       )}
-    </div>
+    </div></div>
   );
 };
 

@@ -32,7 +32,6 @@ const ContactUs = () => {
     <div className="page-wrapper"> {/* full height layout */}
       <div className="contact-page-wrapper"></div>
       <div className="contact-container">
-        <h2>Contact Us</h2>
         <div className="contact-wrapper">
           <form ref={form} onSubmit={sendEmail} className="contact-form">
             <input type="text" name="user_name" placeholder="Your Name" required />

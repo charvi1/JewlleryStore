@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const ProductPage = () => {
   const location = useLocation();
 const queryParams = new URLSearchParams(location.search);
-const CategoryName = queryParams.get("CategoryName");
+const CategoryName = queryParams.get("categoryNames");
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -29,7 +29,7 @@ const CategoryName = queryParams.get("CategoryName");
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/products", {
-          params: { CategoryName: CategoryName },
+          params: { categoryNames: CategoryName },
         });
         setProducts(response.data);
         setFilteredProducts(response.data);

@@ -53,6 +53,9 @@ const SingleProductPage = ({ onLoginClick }) => {
       if (response.data.success) {
         toast.success("Added to cart successfully!");
         window.dispatchEvent(new Event('cartUpdated'));
+
+        window.location.reload();
+
       } else {
         toast.error(response.data.message || "Failed to add item to cart");
       }
@@ -89,8 +92,9 @@ const SingleProductPage = ({ onLoginClick }) => {
           <p>{product.ProductDescription}</p>
           <button
             className="single-product-cart-button"
-            onClick={handleAddToCart}
+            onClick={handleAddToCart} 
           >
+            
             ADD TO CART
           </button>
         </div>

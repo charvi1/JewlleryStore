@@ -62,45 +62,48 @@ const ProfilePage = () => {
     };
 
     const handleSaveProfile = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            navigate('/login');
-            return;
-        }
+    const token = localStorage.getItem('token');
+    if (!token) {
+        navigate('/login');
+        return;
+    }
 
-        try {
-            const updatedData = {
-                UserName: name,
-                PhoneNumber: phoneNumber,
-                Gender: gender,
-                DOB: dob,
-                Location: location,
-                AlternatePhone: alternatePhone,
-                HintName: hintName,
-            };
+    try {
+        const updatedData = {
+            UserName: name,
+            PhoneNumber: phoneNumber,
+            Gender: gender,
+            DOB: dob,
+            Location: location,
+            AlternatePhone: alternatePhone,
+            HintName: hintName,
+        };
 
-            const res = await axios.patch('http://localhost:5000/api/users/me', updatedData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (res.data.success) {
-                setUser(prevUser => ({
-                    ...prevUser,
-                    ...updatedData
-                }));
-                setIsEditing(false);
-                alert('Profile updated successfully!');
-            } else {
-                throw new Error(res.data.message || 'Failed to update profile');
+        const res = await axios.patch('http://localhost:5000/api/users/me', updatedData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             }
-        } catch (err) {
-            console.error('Failed to save profile:', err);
-            setError(err.response?.data?.message || 'Could not save profile. Please try again.');
+        });
+
+        console.log('PATCH response:', res.data);
+
+        if (res.status === 200) {
+            setUser(prevUser => ({
+                ...prevUser,
+                ...updatedData
+            }));
+            setIsEditing(false);
+            alert('Profile updated successfully!');
+        } else {
+            throw new Error('Failed to update profile');
         }
-    };
+    } catch (err) {
+        console.error('Failed to save profile:', err);
+        setError(err.response?.data?.message || 'Could not save profile. Please try again.');
+    }
+};
+
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);

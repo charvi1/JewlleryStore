@@ -14,6 +14,7 @@ const Cart = require("./Cart");
 const { Country, State, Region } = require("./Location");
 const { Department, Designation, Employee } = require("./Employee");
 
+
 // Associations
 SubCategory.belongsTo(Category, { foreignKey: 'CategoryId' });
 Product.belongsTo(SubCategory, { foreignKey: 'SubCategoryId' });

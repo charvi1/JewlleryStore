@@ -1,7 +1,10 @@
 .contact-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 40px ;
+  color:#5b4f47;
+  text-align: center;
+  background-color:#F7F3EA;
 }
 
 .contact-wrapper {
@@ -9,9 +12,11 @@
   justify-content: space-between;
   gap: 30px;
   flex-wrap: wrap;
-  background-color: #f9f9f9;
+  background-color: #5b4f47;
   border-radius: 12px;
-  padding: 30px;
+  padding: 30px ;
+  margin-left: 200px;
+  margin-right: 150px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -19,11 +24,20 @@
 .contact-info {
   flex: 1;
   min-width: 280px;
-  background-color: #ffffff;
+  background-color: #F7F3EA;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
+.contact-info {
+  background-image: url('C:\Users\Dell\Desktop\jewel\JewlleryStore\views\src\assets\contact.jpeg'); /* update with actual image path */
+  background-size: cover;        /* makes the image cover the whole area */
+  background-position: center;   /* centers the image */
+  background-repeat: no-repeat;  /* prevents tiling */
+  padding: 50px;                 /* add padding if needed */
+  color: white;                  /* ensure text is visible over background */
+}
+
 
 .contact-form input,
 .contact-form textarea {
@@ -42,7 +56,7 @@
 }
 
 .contact-form button {
-  background-color: #1f2937;
+  background-color: #5b4f47;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -58,23 +72,28 @@
 }
 
 .contact-info h3 {
-  font-size: 1.4rem;
+  padding-top: 70px;
+  font-size: 1.9rem;
   margin-bottom: 15px;
-  color: #1f2937;
+  font-style: italic;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 700;
+  color: #ffffff;
 }
 
 .contact-info p {
   font-size: 1rem;
   margin-bottom: 10px;
-  color: #4b5563;
+  color: #ffffff;
 }
 .page-wrapper {
   display: flex;
   flex-direction: column;
+  padding-top: 100px;
   min-height: 100vh;
 }
 
 .contact-container {
   flex: 1;
-  padding: 2rem;
+  /* padding: 2rem; */
 }

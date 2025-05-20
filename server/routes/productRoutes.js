@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/productController");
-const upload = require("../middleware/upload");  // ✅ Import middleware
+const upload = require("../middleware/upload");
 
-// ✅ Accepts both JSON (without file) and form-data (with file)
 router.post("/", upload.single("image"), productController.createProduct);
 router.put("/:id", upload.single("image"), productController.updateProduct);
 
-router.get("/", productController.getAllProducts);
+router.get("/", productController.getAllProducts);  // Single get route with filtering inside controller
 router.get("/:id", productController.getProductById);
 router.delete("/:id", productController.deleteProduct);
 router.put("/restock/:id", productController.restockProduct);

@@ -15,7 +15,9 @@
   font-weight: 700;
   z-index: 1;
   }
-
+.navbar-logo{
+  margin-left: -115px;
+}
   .right-link-container{
     width: 25%;
     display: flex;
@@ -40,6 +42,7 @@
     justify-content: space-between;
     align-items: flex-end;
     width: 10vw;
+    height: 70%;
     color: #5b4f47;
   }
 

@@ -2,7 +2,7 @@
 
 .categories-section {
     background-color: #fffef9;
-    height: 105vh;
+    height: 120vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -75,7 +75,6 @@
   }
   
   .cat-btn::after {
-    content: '→';
     position: absolute;
     right: -1.2rem;
     top: 0;

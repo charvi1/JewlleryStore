@@ -40,9 +40,11 @@ const Categories = () => {
               <img src={img2} alt="Necklace" />
             </div>
             <div className="cat-box-1 bordered">
-              <p className="cat-sub">Radiant and chain designs that complement your style</p>
-              <h4 className="cat-title">Necklaces</h4>
               <img src={img6} alt="Necklace Icon" className="cat-icon" />
+              <h4 className="cat-title">Necklaces</h4>
+              <p className="cat-sub">Radiant and chain designs that complement your style</p>
+              <button className="cat-btn">Explore Rings →</button>
+              
             </div>
           </div>
         </div>

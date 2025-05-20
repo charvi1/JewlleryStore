@@ -19,7 +19,7 @@ const ExploreCollection = () => {
           <div className="her-overlay">
             <h1>Crafted For Your Forever Moments</h1>
             <p>Unveil the brilliance of our handcrafted rings.</p>
-            <Link to="/products?CategoryName=Rings" className="shop-now-btn">Shop Now</Link>
+            <Link to="/products?categoryNames=Rings" className="shop-now-btn">Shop Now</Link>
           </div>
         </div>
       </section>
@@ -33,7 +33,7 @@ const ExploreCollection = () => {
           <div className="her-overlay">
             <h1>Grace for Your Wrist</h1>
             <p>Discover our unique and elegant bracelet designs.</p>
-            <Link to="/products?CategoryName=Bracelet" className="shop-now-btn">Shop Now</Link>
+            <Link to="/products?categoryNames=Bracelet" className="shop-now-btn">Shop Now</Link>
           </div>
         </div>
       </section>
@@ -47,7 +47,7 @@ const ExploreCollection = () => {
           <div className="her-overlay">
             <h1>Necklaces That Speaks Your Style</h1>
             <p>Explore our exquisite collection of necklaces.</p>
-            <Link to="/products?CategoryName=Necklace" className="shop-now-btn">Shop Now</Link>
+            <Link to="/products?categoryNames=Necklace" className="shop-now-btn">Shop Now</Link>
           </div>
         </div>
       </section>
@@ -61,7 +61,7 @@ const ExploreCollection = () => {
           <div className="her-overlay">
             <h1>Earrings That Define Elegance</h1>
             <p>Discover stunning designs that elevate every look.</p>
-            <Link to="/products?CategoryName=Earrings" className="shop-now-btn">Shop Now</Link>
+            <Link to="/products?categoryNames=Earrings" className="shop-now-btn">Shop Now</Link>
           </div>
         </div>
       </section>
